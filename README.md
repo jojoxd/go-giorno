@@ -2,6 +2,8 @@
 
 A UI Kit for [gio](https://github.com/gioui/gio)
 
+> This project is currently UNSTABLE. Breakage will occur!
+
 ## Modules
 
 Giorno is split up in modules. See below for more information on all modules
