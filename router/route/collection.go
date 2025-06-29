@@ -3,7 +3,7 @@ package route
 import (
 	"fmt"
 
-	"git.jojoxd.nl/projects/go-giorno/router2/internal"
+	"git.jojoxd.nl/projects/go-giorno/router/internal"
 )
 
 var (

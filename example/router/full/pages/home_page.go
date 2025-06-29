@@ -8,9 +8,9 @@ import (
 	"gioui.org/widget/material"
 
 	"git.jojoxd.nl/projects/go-giorno/example/router/full/routes"
-	"git.jojoxd.nl/projects/go-giorno/router2"
-	"git.jojoxd.nl/projects/go-giorno/router2/intent"
-	"git.jojoxd.nl/projects/go-giorno/router2/routerlink"
+	"git.jojoxd.nl/projects/go-giorno/router"
+	"git.jojoxd.nl/projects/go-giorno/router/intent"
+	"git.jojoxd.nl/projects/go-giorno/router/routerlink"
 )
 
 type HomePage struct {
@@ -18,7 +18,7 @@ type HomePage struct {
 	Theme      *material.Theme
 }
 
-func NewHomePage(th *material.Theme, router router2.Router) *HomePage {
+func NewHomePage(th *material.Theme, router router.Router) *HomePage {
 	return &HomePage{
 		routerLink: routerlink.New(router),
 		Theme:      th,

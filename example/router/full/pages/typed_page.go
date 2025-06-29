@@ -9,9 +9,9 @@ import (
 	"gioui.org/widget/material"
 
 	"git.jojoxd.nl/projects/go-giorno/example/router/full/routes"
-	"git.jojoxd.nl/projects/go-giorno/router2"
-	"git.jojoxd.nl/projects/go-giorno/router2/intent"
-	"git.jojoxd.nl/projects/go-giorno/router2/routerlink"
+	"git.jojoxd.nl/projects/go-giorno/router"
+	"git.jojoxd.nl/projects/go-giorno/router/intent"
+	"git.jojoxd.nl/projects/go-giorno/router/routerlink"
 )
 
 type TypedPage struct {
@@ -21,7 +21,7 @@ type TypedPage struct {
 	subRouterLink  *routerlink.Style
 }
 
-func NewTypedPage(th *material.Theme, router router2.Router) *TypedPage {
+func NewTypedPage(th *material.Theme, router router.Router) *TypedPage {
 	return &TypedPage{
 		th:             th,
 		homeRouterLink: routerlink.New(router),

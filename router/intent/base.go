@@ -1,7 +1,7 @@
 package intent
 
 import (
-	"git.jojoxd.nl/projects/go-giorno/router2/internal"
+	"git.jojoxd.nl/projects/go-giorno/router/internal"
 )
 
 type Base interface {

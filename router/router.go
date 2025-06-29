@@ -1,10 +1,10 @@
-package router2
+package router
 
 import (
-	"git.jojoxd.nl/projects/go-giorno/router2/event"
-	"git.jojoxd.nl/projects/go-giorno/router2/intent"
-	"git.jojoxd.nl/projects/go-giorno/router2/route"
-	"git.jojoxd.nl/projects/go-giorno/router2/view"
+	"git.jojoxd.nl/projects/go-giorno/router/event"
+	"git.jojoxd.nl/projects/go-giorno/router/intent"
+	"git.jojoxd.nl/projects/go-giorno/router/route"
+	"git.jojoxd.nl/projects/go-giorno/router/view"
 )
 
 type Router interface {

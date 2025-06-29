@@ -4,16 +4,16 @@ import (
 	"gioui.org/layout"
 	"gioui.org/widget"
 
-	"git.jojoxd.nl/projects/go-giorno/router2"
-	"git.jojoxd.nl/projects/go-giorno/router2/intent"
+	"git.jojoxd.nl/projects/go-giorno/router"
+	"git.jojoxd.nl/projects/go-giorno/router/intent"
 )
 
 type Style struct {
 	state  *widget.Clickable
-	router router2.Router
+	router router.Router
 }
 
-func New(router router2.Router) *Style {
+func New(router router.Router) *Style {
 	return &Style{
 		state:  &widget.Clickable{},
 		router: router,

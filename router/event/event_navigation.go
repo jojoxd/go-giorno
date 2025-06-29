@@ -1,8 +1,8 @@
 package event
 
 import (
-	"git.jojoxd.nl/projects/go-giorno/router2/intent"
-	"git.jojoxd.nl/projects/go-giorno/router2/view"
+	"git.jojoxd.nl/projects/go-giorno/router/intent"
+	"git.jojoxd.nl/projects/go-giorno/router/view"
 )
 
 type NavigationType int

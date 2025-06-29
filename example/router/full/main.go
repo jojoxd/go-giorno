@@ -12,20 +12,20 @@ import (
 
 	pages2 "git.jojoxd.nl/projects/go-giorno/example/router/full/pages"
 	"git.jojoxd.nl/projects/go-giorno/example/router/full/routes"
-	"git.jojoxd.nl/projects/go-giorno/router2"
-	"git.jojoxd.nl/projects/go-giorno/router2/route"
-	"git.jojoxd.nl/projects/go-giorno/router2/view"
+	"git.jojoxd.nl/projects/go-giorno/router"
+	"git.jojoxd.nl/projects/go-giorno/router/route"
+	"git.jojoxd.nl/projects/go-giorno/router/view"
 )
 
 type context struct {
-	router router2.Router
+	router router.Router
 }
 
 func main() {
 	slog.SetLogLoggerLevel(slog.LevelDebug)
 
 	ctx := context{
-		router: router2.NewRouter(router2.WithLogger(slog.Default())),
+		router: router.NewRouter(router.WithLogger(slog.Default())),
 	}
 
 	th := material.NewTheme()

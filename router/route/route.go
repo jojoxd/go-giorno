@@ -1,9 +1,9 @@
 package route
 
 import (
-	intent2 "git.jojoxd.nl/projects/go-giorno/router2/intent"
-	"git.jojoxd.nl/projects/go-giorno/router2/internal"
-	"git.jojoxd.nl/projects/go-giorno/router2/view"
+	intent2 "git.jojoxd.nl/projects/go-giorno/router/intent"
+	"git.jojoxd.nl/projects/go-giorno/router/internal"
+	"git.jojoxd.nl/projects/go-giorno/router/view"
 )
 
 type Factory func() view.View

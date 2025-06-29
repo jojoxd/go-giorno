@@ -3,7 +3,7 @@ package view
 import (
 	"gioui.org/layout"
 
-	"git.jojoxd.nl/projects/go-giorno/router2/intent"
+	"git.jojoxd.nl/projects/go-giorno/router/intent"
 )
 
 type View interface {

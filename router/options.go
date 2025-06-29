@@ -1,10 +1,10 @@
-package router2
+package router
 
 import (
 	"git.jojoxd.nl/projects/go-giorno/contract"
 	"git.jojoxd.nl/projects/go-giorno/internal"
-	"git.jojoxd.nl/projects/go-giorno/router2/event"
-	"git.jojoxd.nl/projects/go-giorno/router2/history"
+	"git.jojoxd.nl/projects/go-giorno/router/event"
+	"git.jojoxd.nl/projects/go-giorno/router/history"
 )
 
 type Option func(config *config)

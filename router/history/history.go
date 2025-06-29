@@ -1,8 +1,8 @@
 package history
 
 import (
-	"git.jojoxd.nl/projects/go-giorno/router2/intent"
-	"git.jojoxd.nl/projects/go-giorno/router2/view"
+	"git.jojoxd.nl/projects/go-giorno/router/intent"
+	"git.jojoxd.nl/projects/go-giorno/router/view"
 )
 
 // History contains the contract to manage the router stack History
