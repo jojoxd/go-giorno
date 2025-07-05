@@ -1,4 +1,4 @@
-package localizer
+package giorno_i18n
 
 import (
 	"encoding/json"
@@ -8,45 +8,46 @@ import (
 
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"gopkg.in/yaml.v3"
+
+	"git.jojoxd.nl/projects/go-giorno/localizer/locale"
 )
 
-type GoI18nBundleLoader struct {
-	bundle GoI18nBundle
+type Loader struct {
+	bundle Bundle
 }
 
-func NewGoI18nBundleLoader() *GoI18nBundleLoader {
-	return &GoI18nBundleLoader{
-		bundle: make(GoI18nBundle),
+func NewLoader() *Loader {
+	return &Loader{
+		bundle: make(Bundle),
 	}
 }
 
-func (l *GoI18nBundleLoader) Load(fs fsp.FS, locales []Locale) error {
-	for _, locale := range locales {
-		i18nBundle, err := l.load(fs, locale)
+func (l *Loader) Load(fs fsp.FS, locales []locale.Locale) error {
+	for _, localeKey := range locales {
+		i18nBundle, err := l.load(fs, localeKey)
 		if err != nil {
 			return err
 		}
 
-		l.bundle[locale] = i18nBundle
+		l.bundle[localeKey] = i18nBundle
 	}
 
 	return nil
 }
 
-func (l *GoI18nBundleLoader) load(fs fsp.FS, locale Locale) (*i18n.Bundle, error) {
+func (l *Loader) load(fs fsp.FS, locale locale.Locale) (*i18n.Bundle, error) {
 	bundle := i18n.NewBundle(locale.Tag())
 	bundle.RegisterUnmarshalFunc("yaml", yaml.Unmarshal)
 	bundle.RegisterUnmarshalFunc("json", json.Unmarshal)
 
 	glob := fmt.Sprintf("**/*.%s.yaml", strings.ToLower(locale.String()))
-	fmt.Printf(glob)
 	matches, err := fsp.Glob(fs, glob)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, match := range matches {
-		fmt.Printf("loading localization %s", match)
+		fmt.Printf("loading localization %s\n", match)
 		_, err := bundle.LoadMessageFileFS(fs, match)
 		if err != nil {
 			return nil, err
@@ -56,6 +57,6 @@ func (l *GoI18nBundleLoader) load(fs fsp.FS, locale Locale) (*i18n.Bundle, error
 	return bundle, nil
 }
 
-func (l *GoI18nBundleLoader) Bundle() GoI18nBundle {
+func (l *Loader) Bundle() Bundle {
 	return l.bundle
 }

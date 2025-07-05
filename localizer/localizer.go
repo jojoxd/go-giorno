@@ -1,9 +1,13 @@
 package localizer
 
-import "github.com/nicksnyder/go-i18n/v2/i18n"
+import (
+	"github.com/nicksnyder/go-i18n/v2/i18n"
+
+	"git.jojoxd.nl/projects/go-giorno/localizer/locale"
+)
 
 type Localizable interface {
-	Localize(locale Locale) (string, bool)
+	Localize(locale locale.Locale) (string, bool)
 }
 
 type Localizer interface {
@@ -26,5 +30,5 @@ type Localizer interface {
 	Inner() *i18n.Localizer
 
 	// Locale gives the locale that this Localizer is for
-	Locale() Locale
+	Locale() locale.Locale
 }

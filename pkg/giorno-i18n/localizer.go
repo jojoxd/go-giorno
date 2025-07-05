@@ -1,53 +1,56 @@
-package localizer
+package giorno_i18n
 
 import (
 	"fmt"
 
 	"github.com/nicksnyder/go-i18n/v2/i18n"
+
+	"git.jojoxd.nl/projects/go-giorno/localizer"
+	"git.jojoxd.nl/projects/go-giorno/localizer/locale"
 )
 
-type goI18nLocalizerImpl struct {
-	locale   Locale
+type localizerImpl struct {
+	*config
+	locale   locale.Locale
 	inner    *i18n.Localizer
 	fallback *i18n.Localizer
-	eventCh  chan<- LocalizerManagerEvent
 }
 
-func NewGoI18nLocalizer(
-	locale Locale,
+func newLocalizer(
+	locale locale.Locale,
 	inner *i18n.Localizer,
 	fallback *i18n.Localizer,
-	eventCh chan<- LocalizerManagerEvent,
-) Localizer {
-	return &goI18nLocalizerImpl{
+	config *config,
+) localizer.Localizer {
+	return &localizerImpl{
 		locale:   locale,
 		inner:    inner,
 		fallback: fallback,
-		eventCh:  eventCh,
+		config:   config,
 	}
 }
 
-func (l goI18nLocalizerImpl) T(key string) string {
+func (l localizerImpl) T(key string) string {
 	return l.localizeWithFallback(key, &i18n.LocalizeConfig{
 		MessageID: key,
 	})
 }
 
-func (l goI18nLocalizerImpl) Tf(key string, templateData any) string {
+func (l localizerImpl) Tf(key string, templateData any) string {
 	return l.localizeWithFallback(key, &i18n.LocalizeConfig{
 		MessageID:    key,
 		TemplateData: templateData,
 	})
 }
 
-func (l goI18nLocalizerImpl) Tc(key string, pluralCount any) string {
+func (l localizerImpl) Tc(key string, pluralCount any) string {
 	return l.localizeWithFallback(key, &i18n.LocalizeConfig{
 		MessageID:   key,
 		PluralCount: pluralCount,
 	})
 }
 
-func (l goI18nLocalizerImpl) Tfc(key string, pluralCount any, templateData any) string {
+func (l localizerImpl) Tfc(key string, pluralCount any, templateData any) string {
 	return l.localizeWithFallback(key, &i18n.LocalizeConfig{
 		MessageID:    key,
 		PluralCount:  pluralCount,
@@ -55,7 +58,7 @@ func (l goI18nLocalizerImpl) Tfc(key string, pluralCount any, templateData any) 
 	})
 }
 
-func (l goI18nLocalizerImpl) Tl(localizable Localizable) string {
+func (l localizerImpl) Tl(localizable localizer.Localizable) string {
 	if text, ok := localizable.Localize(l.locale); ok {
 		return text
 	}
@@ -64,28 +67,25 @@ func (l goI18nLocalizerImpl) Tl(localizable Localizable) string {
 		return stringer.String()
 	}
 
-	// TODO: Better handling
-	panic(fmt.Errorf("localizer: could not localize %#v", localizable))
+	l.logger.Warn("failed to localize localizable", "localizable", localizable)
+	return fmt.Sprintf("Unlocalizable:%#v", localizable)
 }
 
-func (l goI18nLocalizerImpl) Inner() *i18n.Localizer {
+func (l localizerImpl) Inner() *i18n.Localizer {
 	return l.inner
 }
 
-func (l goI18nLocalizerImpl) Locale() Locale {
+func (l localizerImpl) Locale() locale.Locale {
 	return l.locale
 }
 
-func (l goI18nLocalizerImpl) localizeWithFallback(key string, lc *i18n.LocalizeConfig) string {
+func (l localizerImpl) localizeWithFallback(key string, lc *i18n.LocalizeConfig) string {
 	text, err := l.inner.Localize(lc)
 	if err == nil {
 		return text
 	}
 
-	l.eventCh <- LocalizationNotFoundEvent{
-		Key:    key,
-		Locale: l.locale,
-	}
+	l.eventMgr.LocalizationNotFoundEvent(key, l.locale)
 
 	if l.fallback != nil {
 		text, err := l.fallback.Localize(lc)
