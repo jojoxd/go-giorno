@@ -16,8 +16,8 @@ type Bundle map[locale.Locale]*i18n.Bundle
 
 type localizerManager struct {
 	*config
-	localizer         localizer.Localizer
-	fallbackLocalizer localizer.Localizer
+	localizer         *localizerImpl
+	fallbackLocalizer *localizerImpl
 }
 
 func NewManager(bundle BundleOption, opts ...Option) (localizer.Manager, error) {
@@ -29,7 +29,7 @@ func NewManager(bundle BundleOption, opts ...Option) (localizer.Manager, error) 
 	}
 
 	if config.fallbackLocale != nil {
-		defaultLocalizer, err := manager.LocalizerFor(*config.fallbackLocale)
+		defaultLocalizer, err := manager.localizerFor(*config.fallbackLocale)
 		if err != nil {
 			return nil, err
 		}
@@ -41,7 +41,7 @@ func NewManager(bundle BundleOption, opts ...Option) (localizer.Manager, error) 
 }
 
 func (mgr *localizerManager) SetLocale(locale locale.Locale) error {
-	newLocalizer, err := mgr.LocalizerFor(locale)
+	newLocalizer, err := mgr.localizerFor(locale)
 	if err != nil {
 		return fmt.Errorf("failed to fetch localizer for locale %s: %w", locale, err)
 	}
@@ -55,6 +55,10 @@ func (mgr *localizerManager) SetLocale(locale locale.Locale) error {
 }
 
 func (mgr *localizerManager) LocalizerFor(locale locale.Locale) (localizer.Localizer, error) {
+	return mgr.localizerFor(locale)
+}
+
+func (mgr *localizerManager) localizerFor(locale locale.Locale) (*localizerImpl, error) {
 	bundle, ok := mgr.bundle[locale]
 	if !ok {
 		return nil, fmt.Errorf("locale not found: %w", localizer.ErrLocaleNotFound)

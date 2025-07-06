@@ -1,8 +1,6 @@
 package localizer
 
 import (
-	"github.com/nicksnyder/go-i18n/v2/i18n"
-
 	"git.jojoxd.nl/projects/go-giorno/localizer/locale"
 )
 
@@ -25,9 +23,6 @@ type Localizer interface {
 
 	// Tl localizes a Localizable
 	Tl(localizable Localizable) string
-
-	// Inner gives access to the inner i18n.Localizer
-	Inner() *i18n.Localizer
 
 	// Locale gives the locale that this Localizer is for
 	Locale() locale.Locale

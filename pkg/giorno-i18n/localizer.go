@@ -21,7 +21,7 @@ func newLocalizer(
 	inner *i18n.Localizer,
 	fallback *i18n.Localizer,
 	config *config,
-) localizer.Localizer {
+) *localizerImpl {
 	return &localizerImpl{
 		locale:   locale,
 		inner:    inner,
