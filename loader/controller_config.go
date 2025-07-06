@@ -25,13 +25,13 @@ func (c *controllerConfig[TData]) load(opts ...ControllerOption[TData]) {
 	}
 }
 
-func Logger[TData any](logger contract.Logger) ControllerOption[TData] {
+func WithLogger[TData any](logger contract.Logger) ControllerOption[TData] {
 	return func(c *controllerConfig[TData]) {
 		c.logger = internal.NewModulePrefixLogger("loader", "controller", logger)
 	}
 }
 
-func KeepStaleDataWhileReloading[TData any]() ControllerOption[TData] {
+func WithStaleDataWhileReloading[TData any]() ControllerOption[TData] {
 	return func(c *controllerConfig[TData]) {
 		c.keepStaleDataWhileReloading = true
 	}

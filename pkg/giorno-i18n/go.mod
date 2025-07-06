@@ -1,4 +1,4 @@
-module git.jojoxd.nl/projects/go-giorno/pkg/go-giorno-i18n
+module git.jojoxd.nl/projects/go-giorno/pkg/giorno-i18n
 
 go 1.24.4
 
