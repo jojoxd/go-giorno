@@ -57,6 +57,6 @@ func WithFallbackLocale(fallbackLocale locale.Locale) Option {
 // WithLogger sets the contract.Logger to be used in the localizer
 func WithLogger(logger contract.Logger) Option {
 	return func(config *config) {
-		config.logger = internal.NewPrefixLogger("go-giorno:localizer-i18n", logger)
+		config.logger = internal.NewModulePrefixLogger("localizer", "i18n", logger)
 	}
 }

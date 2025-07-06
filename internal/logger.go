@@ -30,6 +30,13 @@ func NewPrefixLogger(prefix string, inner contract.Logger) contract.Logger {
 	}
 }
 
+func NewModulePrefixLogger(module, prefix string, inner contract.Logger) contract.Logger {
+	return prefixLogger{
+		prefix: fmt.Sprintf("giorno/%s.%s", module, prefix),
+		inner:  inner,
+	}
+}
+
 func (p prefixLogger) Warn(message string, args ...any) {
 	p.inner.Warn(fmt.Sprintf("%s: %s", p.prefix, message), args...)
 }

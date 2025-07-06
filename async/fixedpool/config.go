@@ -31,7 +31,7 @@ func (c *config) Load(opts ...Option) {
 
 func Logger(logger contract.Logger) Option {
 	return func(c *config) {
-		c.logger = internal.NewPrefixLogger("gkasync.fixedPoolScheduler", logger)
+		c.logger = internal.NewModulePrefixLogger("async", "fixedPoolScheduler", logger)
 	}
 }
 

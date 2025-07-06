@@ -39,7 +39,7 @@ func WithEventing() Option {
 // WithLogger enables the internal (debug) logger
 func WithLogger(logger contract.Logger) Option {
 	return func(config *config) {
-		config.logger = internal.NewPrefixLogger("gkrouter", logger)
+		config.logger = internal.NewModulePrefixLogger("router", "router", logger)
 	}
 }
 

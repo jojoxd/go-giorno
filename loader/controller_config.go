@@ -27,7 +27,7 @@ func (c *controllerConfig[TData]) load(opts ...ControllerOption[TData]) {
 
 func Logger[TData any](logger contract.Logger) ControllerOption[TData] {
 	return func(c *controllerConfig[TData]) {
-		c.logger = internal.NewPrefixLogger("gkloader.controller", logger)
+		c.logger = internal.NewModulePrefixLogger("loader", "controller", logger)
 	}
 }
 
